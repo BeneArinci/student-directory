@@ -1,4 +1,3 @@
-student_count = 11
 # let's crate an array and put all our sutents inside it
 students = [
   "Dr. Hannibal Lecter",
@@ -12,20 +11,12 @@ students = [
   "The Joker",
   "Joffrey Baratheon",
   "Norman Bates"]
-# now let's print all the students
+# now let's print all the students iterating over the array elements
 puts "The students of Villains Academy"
 puts "------------"
-puts students[0]
-puts students[1]
-puts students[2]
-puts students[3]
-puts students[4]
-puts students[5]
-puts students[6]
-puts students[7]
-puts students[8]
-puts students[9]
-puts students[10]
-# then we print the total
-puts "Overall, we have #{student_count} great students "
+students.each do |name|
+  puts name
+end 
+# we print the total using a count method (it returns the number of elements of an array)
+puts "Overall, we have #{students.count} great students "
 
