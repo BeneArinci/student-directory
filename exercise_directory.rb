@@ -1,23 +1,38 @@
 # This rb file will contain all the exercises (step8 - week 4)
 # every commitment will contain an exercise completed
+# Our code only works with the student name and cohort. 
+# Add more information: hobbies, country of birth, height, etc.
 def input_students
+  students = []
   puts "Please, enter the name of the students"
   puts "To finish, just hit the return twice"
-  students = []
   name = gets.chomp
-  while !name.empty? do
-    students << {name: name, cohort: :november}
+  puts "How old is the student?"
+  age = gets.chomp
+  puts "What's their nationality?"
+  nationality = gets.chomp
+  while true do
+    students << {name: name, age: age, nationality: nationality, cohort: :november}
     puts "Now we have #{students.count} students"
+    puts "Who is the next student?"
     name = gets.chomp
+    if name.empty?
+      break
+    else
+      puts "How old is the student?"
+      age = gets.chomp
+      puts "What's their nationality?"
+      nationality = gets.chomp
+    end
   end 
 students
 end
 
 def print_header
-  puts "The students of Villains Academy (names shorter than 12 characters)"
+  puts "The students of Villains Academy"
   puts "------------"
 end
-# Rewrite the each() method that prints all students using while or until control flow methods (Loops).
+
 def print(students)
   index = 0
   while index < students.length do
