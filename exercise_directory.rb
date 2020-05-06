@@ -29,18 +29,18 @@ students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "------------"
+  puts "The students of Villains Academy".center(100)
+  puts "~~~~~~~~~~~~~~~~~~~~~~~~~~".center(100)
 end
-
+# Research how the method center() of the String class works. 
+# Use it in your code to make the output beautifully aligned.
 def print(students)
   index = 0
   while index < students.length do
-    puts "#{students[index][:name].capitalize} (#{students[index][:cohort]} cohort)"
+    puts "#{students[index][:name].capitalize} (#{students[index][:cohort]} cohort) is #{students[index][:age]} years old and #{students[index][:nationality]}.".center(100)
+    puts "--------------------------------".center(100)
     index +=1
   end
-    
-  
 end
 
 def print_footer(students)
