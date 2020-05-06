@@ -14,15 +14,17 @@ students
 end
 
 def print_header
-  puts "The students of Villains Academy"
+  puts "The students of Villains Academy (letters B and G)"
   puts "------------"
 end
-# We're using the each() method to iterate over an array of students. 
-# How can you modify the program to print a number before the name of each student, 
-# e.g. "1. Dr. Hannibal Lecter"? Hint: look into each_with_index()?
+# Modify your program to only print the students whose name begins with a specific letter.
+# I chose the letter B and G
 def print(students)
-  students.each_with_index do |student, index|
-    puts "#{(index + 1)}. #{student[:name]}"
+  students.each do |student|
+    if student[:name].capitalize.start_with?("B") || 
+    student[:name].capitalize.start_with?("G")
+      puts "#{student[:name].capitalize}"
+    end
   end 
 end
 
@@ -33,4 +35,4 @@ end
 students = input_students
 print_header
 print(students)
-print_footer(students)
+#print_footer(students)
