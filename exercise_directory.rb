@@ -17,13 +17,15 @@ def print_header
   puts "The students of Villains Academy (names shorter than 12 characters)"
   puts "------------"
 end
-# Modify your program to only print the students whose name is shorter than 12 characters.
+# Rewrite the each() method that prints all students using while or until control flow methods (Loops).
 def print(students)
-  students.each do |student|
-    if student[:name].length <= 12
-      puts "#{student[:name].capitalize}"
-    end
-  end 
+  index = 0
+  while index < students.length do
+    puts "#{students[index][:name].capitalize} (#{students[index][:cohort]} cohort)"
+    index +=1
+  end
+    
+  
 end
 
 def print_footer(students)
