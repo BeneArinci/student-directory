@@ -14,15 +14,13 @@ students
 end
 
 def print_header
-  puts "The students of Villains Academy (letters B and G)"
+  puts "The students of Villains Academy (names shorter than 12 characters)"
   puts "------------"
 end
-# Modify your program to only print the students whose name begins with a specific letter.
-# I chose the letter B and G
+# Modify your program to only print the students whose name is shorter than 12 characters.
 def print(students)
   students.each do |student|
-    if student[:name].capitalize.start_with?("B") || 
-    student[:name].capitalize.start_with?("G")
+    if student[:name].length <= 12
       puts "#{student[:name].capitalize}"
     end
   end 
