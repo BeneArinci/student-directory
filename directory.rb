@@ -1,9 +1,3 @@
-# STUDENTS DIRECTORY REFACTORING
-# 1) we created an instance variable for the universe class
-# in this way all the methods will be able to access it
-# even without giving it as an argument.
-# 2) interactive menu method is too long, we need to divide it 
-# into multiple, shorter methods
 @students = []
 def input_students
   puts "Please, enter the name of the students"
@@ -34,6 +28,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list of students to students.csv"
   puts "9. Exit" 
 end
 
@@ -49,11 +44,25 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit 
     else
       puts "I don't know what you meant, try again"
   end 
+end
+# let's add a method that allows us to save our students list on a csv file
+def save_students
+  # open the file for writing (it's going to be created in the same folder)
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line # if we call puts to a file, it's going to print in it instead of printing to screen
+  end
+  file.close
 end
 
 def interactive_menu
@@ -62,5 +71,7 @@ def interactive_menu
     process(gets.chomp) # nice, I didn't know this!
   end
 end
+
+
 
 interactive_menu
