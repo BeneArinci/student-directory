@@ -1,71 +1,65 @@
-# Instead of manually feeding our array of students we are now going to ask the user to do that
-# First thing to do is to create a method
+# STUDENTS DIRECTORY REFACTORING
+# 1) we created an instance variable for the universe class
+# in this way all the methods will be able to access it
+# even without giving it as an argument.
+# 2) interactive menu method is too long, we need to divide it 
+# into multiple, shorter methods
+@students = []
 def input_students
   puts "Please, enter the name of the students"
   puts "To finish, just hit the return twice"
-  # we create an empty array that will contain all the input names
-  students = []
-  # we get the first name
   name = gets.chomp
-  # let's create a loop that, while the name is not an empty string, will execute an action
   while !name.empty? do
-    # the first action is to add the students to our students array
-    students << {name: name, cohort: :november}
-    # the second one is to update the user with the current number of students
-    puts "Now we have #{students.count} students"
-    # now we ask for the next name
-    name = gets.chomp
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
+      name = gets.chomp
   end 
-  # after the loop break, our program's last action is to return the the array of students
-  students
 end
 
 def print_header
   puts "The students of Villains Academy"
   puts "------------"
 end
-# second method has now changed in order to interact with multipe info regarding the 
-def print(students)
-  students.each do |student|
+
+def print
+  @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end 
 end
-# third method is used to print the footer
-def print_footer(students)
-puts "Overall, we have #{students.count} great students "
+
+def print_footer
+puts "Overall, we have #{@students.count} great students "
 end
-# nothing will happen till we call our methods with the correct parameters
 
-# instead of manually calling our methods, let's add an interactive menu
-# the user will decide themself what method to call
-
-def interactive_menu
-  students = []
-  loop do
-  # 1. print the menu and ask the user what they want to do
+def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "9. Exit" # 9 because we are going to add more values
-  # 2. read the input and save it into a variable
-  selection = gets.chomp
-  # 3. do what the user have asked 
+  puts "9. Exit" 
+end
+
+def show_students
+  print_header
+  print
+  print_footer 
+end
+
+def process(selection)
   case selection
     when "1"
-      # input the students
-      students = input_students
+      input_students
     when "2"
-      # show the students
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when "9"
-      exit # this will cause the program to terminate
+      exit 
     else
       puts "I don't know what you meant, try again"
   end 
-  # 4. send back to step 1
-  # when the entire loop has been read and all the actions taken, we end it and 
-  # we send the user back to the first line of it
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp) # nice, I didn't know this!
   end
 end
 
