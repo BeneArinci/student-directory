@@ -1,5 +1,6 @@
 # This rb file will contain all the exercises (step8 - week 4)
-# We've been using the chomp() method to get rid of the last return character. Find another method
+# What happens if the user doesn't enter any students? It will try to print an empty list. 
+# How can you use an if statement (Control Flow) to only print the list if there is at least one student in there?
 
 
 def input_students
@@ -15,7 +16,7 @@ def input_students
   while true do
     puts "Who is the next student?"
     # --> using g.sub method to get rid of the last return character <--
-    name = gets.gsub!("\n","")
+    name = gets.chomp
       # my main loop is breaking only when the user leave empty the field 'name'
       if name.empty?
         puts "Now we have #{students.count} students"
@@ -55,15 +56,21 @@ end
 # I am iterating again over the hashes' values (arrays of hashes)
 # after that I am iterating again on the single hashes (single student) in order to change the value and to make it be just the name
 def print(students)
-  puts students.group_by {|student| student[:cohort]}
-  .each {|cohort, students| students.map!{|single_student| single_student = (single_student[:name])}}
-  .flatten
+  # creating an if statement to tell the program to print only if there is at least one student
+  if students.count > 0 
+    puts students.group_by {|student| student[:cohort]}
+    .each {|cohort, students| students.map!{|single_student| single_student = (single_student[:name])}}
+    .flatten
+  end
 end
 
 def print_footer(students)
   # using if statement to generate a difference between having a single or multiple students
   if students.count == 1
     puts "Overall, we have a great student".center(100)
+  # adding to the if statement to change the header phrase in case there are no students
+  elsif students.count == 0
+    puts "We don't have any students"
   else
     puts "Overall, we have #{students.count} great students ".center(100)
   end
