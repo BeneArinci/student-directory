@@ -1,13 +1,11 @@
 # This rb file will contain all the exercises (step8 - week 4)
-# In the input_students method the cohort value is hard-coded. 
-# How can you ask for both the name and the cohort? 
-# What if one of the values is empty? Can you supply a default value? 
-# The input will be given to you as a string? How will you convert it to a symbol? 
-# What if the user makes a typo?
+# Once you complete the previous exercise, change the way the users are displayed: 
+#print them grouped by cohorts
+
 
 def input_students
   students = []
-  # creating the list of possible cohort start months
+  # creating the list of possible corhort start months
   cohorts = ["january", "february", "march", "april", "may", "june", "july",
   "august", "september", "october", "november", "december"]
   # set up the current month to insert as a default value when the student's cohort is not indicated
@@ -46,14 +44,14 @@ def print_header
   puts "The students of Villains Academy".center(100)
   puts "~~~~~~~~~~~~~~~~~~~~~~~~~~".center(100)
 end
-
+# I am grouping by cohort key
+# then I am iterating over the hashes that came out from the group by
+# I am iterating again over the hashes' values (arrays of hashes)
+# after that I am iterating again on the single hashes (single student) in order to change the value and to make it be just the name
 def print(students)
-  index = 0
-  while index < students.length do
-    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)".center(100)
-    puts "--------------------------------".center(100)
-    index +=1
-  end
+  puts students.group_by {|student| student[:cohort]}
+  .each {|cohort, students| students.map!{|single_student| single_student = (single_student[:name])}}
+  .flatten
 end
 
 def print_footer(students)
