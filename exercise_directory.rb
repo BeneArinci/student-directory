@@ -1,6 +1,7 @@
 # This rb file will contain all the exercises (step8 - week 4)
-# Once you complete the previous exercise, change the way the users are displayed: 
-#print them grouped by cohorts
+# Right now if we have only one student, the user will see a message "Now we have 1 students", 
+# whereas it should be "Now we have 1 student". 
+# How can you fix it so that it used singular form when appropriate and plural form otherwise?
 
 
 def input_students
@@ -35,10 +36,16 @@ def input_students
       else
         students << {name: name.capitalize, cohort: cohort.capitalize.to_sym}
       end
-    puts "Now we have #{students.count} students"
-  end 
- students
-end
+    # while our user is giving info about the students, I am making a difference
+    # between the first name and the next ones
+    if students.count == 1
+      puts "Now we have a student"
+    else
+      puts "Now we have #{students.count} students"
+    end 
+  end
+  students 
+end 
 
 def print_header
   puts "The students of Villains Academy".center(100)
@@ -55,7 +62,12 @@ def print(students)
 end
 
 def print_footer(students)
-puts "Overall, we have #{students.count} great students ".center(100)
+  # using if statement to generate a difference between having a single or multiple students
+  if students.count == 1
+    puts "Overall, we have a great student".center(100)
+  else
+    puts "Overall, we have #{students.count} great students ".center(100)
+  end
 end
 
 students = input_students
