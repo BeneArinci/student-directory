@@ -36,9 +36,37 @@ puts "Overall, we have #{students.count} great students "
 end
 # nothing will happen till we call our methods with the correct parameters
 
-# now, instead of having a precompiled array of students, we'll use our methods
-# with a new students variable that is given by our new method input_students
-students = input_students
-print_header
-print(students)
-print_footer(students)
+# instead of manually calling our methods, let's add an interactive menu
+# the user will decide themself what method to call
+
+def interactive_menu
+  students = []
+  loop do
+  # 1. print the menu and ask the user what they want to do
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit" # 9 because we are going to add more values
+  # 2. read the input and save it into a variable
+  selection = gets.chomp
+  # 3. do what the user have asked 
+  case selection
+    when "1"
+      # input the students
+      students = input_students
+    when "2"
+      # show the students
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+  end 
+  # 4. send back to step 1
+  # when the entire loop has been read and all the actions taken, we end it and 
+  # we send the user back to the first line of it
+  end
+end
+
+interactive_menu
