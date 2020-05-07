@@ -1,7 +1,5 @@
 # This rb file will contain all the exercises (step8 - week 4)
-# Right now if we have only one student, the user will see a message "Now we have 1 students", 
-# whereas it should be "Now we have 1 student". 
-# How can you fix it so that it used singular form when appropriate and plural form otherwise?
+# We've been using the chomp() method to get rid of the last return character. Find another method
 
 
 def input_students
@@ -16,7 +14,8 @@ def input_students
   # just to make it easier I got rid of the other info and I am working only on 'name' and 'cohort'
   while true do
     puts "Who is the next student?"
-    name = gets.chomp
+    # --> using g.sub method to get rid of the last return character <--
+    name = gets.gsub!("\n","")
       # my main loop is breaking only when the user leave empty the field 'name'
       if name.empty?
         puts "Now we have #{students.count} students"
