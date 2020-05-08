@@ -1,7 +1,8 @@
 # In this file I'll be working on the step14 exercises
-# After we added the code to load the students from file, we ended up with adding the students to @students in two places.
-# How can you extract them into a method to fix this problem?
+# How could you make the program load students.csv by default if no file is given on startup? 
+# Which methods would you need to change?
 @students = []
+
 def loading(name)
   @students << {name: name, cohort: :november}
 end
@@ -84,8 +85,10 @@ end
 
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exist?(filename)
+  if filename.nil?
+    load_students
+    puts "Loaded #{@students.count} from students.cvs"
+  elsif File.exist?(filename)
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else
