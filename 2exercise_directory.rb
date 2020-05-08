@@ -1,9 +1,9 @@
 # In this file I'll be working on the step14 exercises
-# We are opening and closing the files manually. Read the documentation of the 
-# File class to find out how to use a code block (do...end) to access a file, 
-# so that we didn't have to close it explicitly (it will be closed automatically 
-# when the block finishes). Refactor the code to use a code block.
+# We are de-facto using CSV format to store data. However, Ruby includes a library 
+# to work with the CSV files that we could use instead of working directly with the files. 
+# Refactor the code to use this library.
 @students = []
+require "csv"
 def adding_students(name)
   @students << {name: name, cohort: :november}
 end
@@ -75,23 +75,19 @@ end
 def save_students
   puts "Which file would you like to save the students in? "
   filename = gets.chomp
-  file = File.open(filename, "w") do |file|
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line 
-  end
+  CSV.open(filename, "wb") do |csv|
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
+    end
   end
   puts "New info have been added to the file, now we have #{@students.count} students"
 end
 
 def load_students(filename)
-  file = File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
+  CSV.foreach(File.path(filename)) do |row|
+    name, cohort = row[0], row[1]
     adding_students(name)
-    end 
-  end 
+  end
 puts "New students have been loaded"
 end 
 
