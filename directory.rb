@@ -48,7 +48,7 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      load_studens
+      load_students
     when "9"
       exit 
     else
@@ -67,23 +67,38 @@ def save_students
   end
   file.close
 end
-# we are adding a method for loading data from file
-def load_studens
-  file = File.open("students.csv", "r")
+# we are giving our method a file name as an argument. 
+# our file students.csv will be the default one and we don't even need to call it from the command line
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
   end
 file.close
 end 
+# in order to give the possibility to the user to load data from anoter file using the command line
+# we now define this method
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out from the method if the file name isn't given
+  if File.exist?(filename)
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
+end
 
 def interactive_menu
   loop do
+    
     print_menu
     process(gets.chomp) # nice, I didn't know this!
   end
 end
 
 
-
+try_load_students
 interactive_menu
