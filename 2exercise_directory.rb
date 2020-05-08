@@ -1,9 +1,8 @@
 # In this file I'll be working on the step14 exercises
-# Continue refactoring the code. Which method is a bit too long? What method names 
-# are not clear enough? Anything else you'd change to make your code look more elegant? 
-# Why?
+# Right now, when the user choses an option from our menu, there's no way of them 
+# knowing if the action was successful. Can you fix this and implement 
+# feedback messages for the user?
 @students = []
-# I am changing the name of this method to adding_students so it's more clear
 def adding_students(name)
   @students << {name: name, cohort: :november}
 end
@@ -59,6 +58,7 @@ def process(selection)
     when "4"
       load_students
     when "9"
+      puts "Goodbye"
       exit 
     else
       puts "I don't know what you meant, try again"
@@ -73,6 +73,7 @@ def save_students
     file.puts csv_line 
   end
   file.close
+  puts "New info have been added to the file, now we have #{@students.count} students"
 end
 
 def load_students(filename = "students.csv")
@@ -82,6 +83,7 @@ def load_students(filename = "students.csv")
     adding_students(name)
   end
 file.close
+puts "New students have been loaded"
 end 
 # I am changing this name too because "try load students" is not clear enough
 def initial_students_loading
@@ -104,9 +106,6 @@ def interactive_menu
     process(gets.chomp)
   end
 end
-# I am looking at the code but I don't see what changes I could make maintaining 
-# the same functionality. For now I've just changed the methods names to make them
-# more readable and understandable
 
 initial_students_loading
 interactive_menu
