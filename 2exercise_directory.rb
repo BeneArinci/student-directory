@@ -1,9 +1,10 @@
 # In this file I'll be working on the step14 exercises
-# How could you make the program load students.csv by default if no file is given on startup? 
-# Which methods would you need to change?
+# Continue refactoring the code. Which method is a bit too long? What method names 
+# are not clear enough? Anything else you'd change to make your code look more elegant? 
+# Why?
 @students = []
-
-def loading(name)
+# I am changing the name of this method to adding_students so it's more clear
+def adding_students(name)
   @students << {name: name, cohort: :november}
 end
 
@@ -12,7 +13,7 @@ def input_students
   puts "To finish, just hit the return twice"
   name = gets.chomp
   while !name.empty? do
-    loading(name)
+    adding_students(name)
     puts "Now we have #{@students.count} students"
       name = gets.chomp
   end 
@@ -78,12 +79,12 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
-    loading(name)
+    adding_students(name)
   end
 file.close
 end 
-
-def try_load_students
+# I am changing this name too because "try load students" is not clear enough
+def initial_students_loading
   filename = ARGV.first
   if filename.nil?
     load_students
@@ -103,7 +104,9 @@ def interactive_menu
     process(gets.chomp)
   end
 end
+# I am looking at the code but I don't see what changes I could make maintaining 
+# the same functionality. For now I've just changed the methods names to make them
+# more readable and understandable
 
-
-try_load_students
+initial_students_loading
 interactive_menu
