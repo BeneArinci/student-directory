@@ -1,7 +1,6 @@
 # In this file I'll be working on the step14 exercises
-# Right now, when the user choses an option from our menu, there's no way of them 
-# knowing if the action was successful. Can you fix this and implement 
-# feedback messages for the user?
+# The filename we use to save and load data (menu items 3 and 4) is hardcoded. 
+# Make the script more flexible by asking for the filename if the user chooses these menu items.
 @students = []
 def adding_students(name)
   @students << {name: name, cohort: :november}
@@ -36,8 +35,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list of students to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list of students to external file"
+  puts "4. Load the list from esternal file"
   puts "9. Exit" 
 end
 
@@ -56,7 +55,13 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      load_students
+      puts "Which file would you like to upload students from?"
+      filename = gets.chomp
+      while !File.exist?(filename)
+        puts "Sorry, the indicated file doesn't exist, try again"
+        filename = gets.chomp
+      end
+        load_students(filename)
     when "9"
       puts "Goodbye"
       exit 
@@ -66,7 +71,9 @@ def process(selection)
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "Which file would you like to save the students in? "
+  filename = gets.chomp
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -76,7 +83,7 @@ def save_students
   puts "New info have been added to the file, now we have #{@students.count} students"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename)
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
@@ -85,11 +92,11 @@ def load_students(filename = "students.csv")
 file.close
 puts "New students have been loaded"
 end 
-# I am changing this name too because "try load students" is not clear enough
+
 def initial_students_loading
   filename = ARGV.first
   if filename.nil?
-    load_students
+    load_students("students.csv")
     puts "Loaded #{@students.count} from students.cvs"
   elsif File.exist?(filename)
     load_students(filename)
