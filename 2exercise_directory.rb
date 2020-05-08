@@ -1,6 +1,8 @@
 # In this file I'll be working on the step14 exercises
-# The filename we use to save and load data (menu items 3 and 4) is hardcoded. 
-# Make the script more flexible by asking for the filename if the user chooses these menu items.
+# We are opening and closing the files manually. Read the documentation of the 
+# File class to find out how to use a code block (do...end) to access a file, 
+# so that we didn't have to close it explicitly (it will be closed automatically 
+# when the block finishes). Refactor the code to use a code block.
 @students = []
 def adding_students(name)
   @students << {name: name, cohort: :november}
@@ -73,23 +75,23 @@ end
 def save_students
   puts "Which file would you like to save the students in? "
   filename = gets.chomp
-  file = File.open(filename, "w")
+  file = File.open(filename, "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line 
   end
-  file.close
+  end
   puts "New info have been added to the file, now we have #{@students.count} students"
 end
 
 def load_students(filename)
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
+  file = File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
     adding_students(name)
-  end
-file.close
+    end 
+  end 
 puts "New students have been loaded"
 end 
 
